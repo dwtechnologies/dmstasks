@@ -70,6 +70,9 @@ func genJSONFiles(t *Tasks) {
 			log.Fatal("Couldn't convert Task to JSON")
 		}
 
+		// Create the tasks directory
+		os.Mkdir("tasks", 0755)
+
 		// Write the task to a JSON-file
 		ioutil.WriteFile("tasks/"+task.ReplicationTaskIdentifier+".json", []byte(taskJSON), 0644)
 	}
