@@ -2,14 +2,14 @@
 
 Quick and dirty tasks creator for Amazon AWS DMS (Data Migration Service). 
 
-This project was created because of how DMS works (or more how it DOESN'T work, at all...)  
+This project was created because of how DMS works (it needs small task with around 8-12 tablers each ...)  
 Basically we tried to migrate a large database (30GB) with around 570 tables with ongoing replication.  
 It Would always go *well* until around 85% when we would start seeing errors.
 
 After talking to AWS Support it seems that the only way to get DMS to work is to split the task to many smaller task with around 10-20 tables maxiumum per task.  
-It should also be split by transaction.
+It should be split based on transactions/table names.
 
-So as the lazy guy I am I created this quick and dirty program for generating JSON task files so these don't have to be created manually.
+So as the lazy guy I am I created this quick and dirty program for generating JSON task files (that can be imported using aws cli).  
 
 What you need:  
 `Golang` - Build the program by issuing `go build` inside the dmstasks directory.  
@@ -25,4 +25,4 @@ Then simply run:
 
 
 You will now end up with a lot of JSON files in the `tasks` directory, ready for your pleasure.  
-Have a look in the supplied `runtasks.sh` for automated task creation and activation using shell.
+Have a look in the supplied `createtasks.sh` and `runtasks.sh` for automated task creation and activation.
