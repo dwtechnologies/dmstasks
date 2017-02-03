@@ -11,7 +11,7 @@ func genRule(r *string) *Rules {
 		RuleID:   rulestr,
 		RuleName: rulestr,
 		ObjectLocator: ObjectLocator{
-			SchemaName: sourceschema,
+			SchemaName: *sourceschema,
 			TableName:  *r,
 		},
 		RuleAction: "include",
@@ -27,7 +27,7 @@ func defaultExclude() *Rules {
 		RuleID:   rulestr,
 		RuleName: rulestr,
 		ObjectLocator: ObjectLocator{
-			SchemaName: sourceschema,
+			SchemaName: *sourceschema,
 			TableName:  "%",
 		},
 		RuleAction: "exclude",
@@ -44,9 +44,9 @@ func defaultRename() *Rules {
 		RuleName:   rulestr,
 		RuleTarget: "schema",
 		ObjectLocator: ObjectLocator{
-			SchemaName: sourceschema,
+			SchemaName: *sourceschema,
 		},
 		RuleAction: "rename",
-		Value:      targetschema,
+		Value:      *targetschema,
 	}
 }

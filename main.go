@@ -15,25 +15,25 @@ const (
 )
 
 var (
-	source       = ""
-	target       = ""
-	replication  = ""
-	sourceschema = ""
-	targetschema = ""
+	source       = new(string)
+	target       = new(string)
+	replication  = new(string)
+	sourceschema = new(string)
+	targetschema = new(string)
 	ruleid       = 1
 	deftask      = &Task{}
 )
 
 func main() {
-	source = *flag.String("source", "", "ARN to the Source Endpoint")
-	target = *flag.String("target", "", "ARN to the Target Endpoint")
-	replication = *flag.String("replication", "", "ARN to the Replication Instance")
-	sourceschema = *flag.String("sourceschema", "", "Schema name on Source Endpoint")
-	targetschema = *flag.String("targetschema", "", "Schema name on Target Endpoint")
+	source := flag.String("source", "", "ARN to the Source Endpoint")
+	target = flag.String("target", "", "ARN to the Target Endpoint")
+	replication = flag.String("replication", "", "ARN to the Replication Instance")
+	sourceschema = flag.String("sourceschema", "", "Schema name on Source Endpoint")
+	targetschema = flag.String("targetschema", "", "Schema name on Target Endpoint")
 	flag.Parse()
 
 	// Check that the minimum amount of settings is set
-	if source == "" || target == "" || replication == "" || sourceschema == "" {
+	if *source == "" || *target == "" || *replication == "" || *sourceschema == "" {
 		fmt.Printf("usage: dmstasks -[replication/source/sourceschema/target] string (optinal -targetschema string)\n")
 		fmt.Printf("Will generate task files in ./tasks directory based on tables in tables.txt with settings from defaults.json.\n\n")
 		flag.PrintDefaults()
@@ -42,8 +42,8 @@ func main() {
 	}
 
 	// If target schema is not set, assume it's the same schema name as source
-	if targetschema == "" {
-		targetschema = sourceschema
+	if *targetschema == "" {
+		*targetschema = *sourceschema
 	}
 
 	// Read the defaults file

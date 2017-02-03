@@ -51,12 +51,12 @@ func genTask(r *string) *Task {
 
 	// Set the name of the task
 	name := split[0]
-	task.ReplicationTaskIdentifier = sourceschema + "-" + targetschema + "-" + name
+	task.ReplicationTaskIdentifier = *sourceschema + "-" + *targetschema + "-" + name
 
 	// Set ARNs
-	task.SourceEndpointArn = source
-	task.TargetEndpointArn = target
-	task.ReplicationInstanceArn = replication
+	task.SourceEndpointArn = *source
+	task.TargetEndpointArn = *target
+	task.ReplicationInstanceArn = *replication
 
 	// Set CloudWatch LogGroup
 	if task.ReplicationTaskSettings.Logging.EnableLogging == true {
