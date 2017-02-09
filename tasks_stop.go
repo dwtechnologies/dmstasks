@@ -39,7 +39,7 @@ func stopTasks() {
 	}
 
 	// Start all the tasks stored in tasks
-	for _, task := range *tasks {
+	for id, task := range *tasks {
 		params := &databasemigrationservice.StopReplicationTaskInput{
 			ReplicationTaskArn: aws.String(task.ReplicationTaskArn),
 		}
@@ -53,6 +53,9 @@ func stopTasks() {
 			case strings.Contains(err.Error(), "is already being stopped"):
 				fmt.Println("Task", task.ReplicationTaskIdentifier, "is already being stopped")
 				continue
+			case strings.Contains(err.Error(), "does not exist"):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "doesn't exists")
+				removeTask(tasks, id)
 			}
 
 			fmt.Println("Couldn't stop Replication Task", err)

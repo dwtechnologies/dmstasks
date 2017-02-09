@@ -86,14 +86,18 @@ func createTasksOnAws(t *Tasks) {
 	// Load whats currenty in the file
 	readTasks, err := ioutil.ReadFile(tasksFile)
 	if err != nil {
-		log.Fatal("Couldn't read file "+tasksFile, err)
+		if !strings.Contains(err.Error(), "no such file or directory") {
+			log.Fatal("Couldn't read file "+tasksFile, err)
+		}
 	}
 
 	// Create tasksFromFile and unmarshal the JSON
 	tasksFromFile := new([]ReplicationTask)
 	err = json.Unmarshal(readTasks, tasksFromFile)
 	if err != nil {
-		log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
+		if string(readTasks) != "" {
+			log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
+		}
 	}
 
 	if (len(tasksCreated)) > 0 {

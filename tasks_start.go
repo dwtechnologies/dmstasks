@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -46,6 +47,12 @@ func startTasks(t string) {
 
 		_, err := svc.StartReplicationTask(params)
 		if err != nil {
+			switch {
+			case strings.Contains(err.Error(), "Task cannot be started, invalid state"):
+				fmt.Println("Task can't be started", task.ReplicationTaskIdentifier, "in it's current state (still being created?)")
+				continue
+			}
+
 			fmt.Println("Couldn't start Replication Task", err)
 			continue
 		}
