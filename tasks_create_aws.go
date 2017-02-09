@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -66,6 +67,11 @@ func createTasksOnAws(t *Tasks) {
 		stringMarshaled, _ := json.Marshal(resp)
 		err = json.Unmarshal(stringMarshaled, output)
 		if err != nil {
+			switch {
+			case strings.Contains(err.Error(), "A task with this name already exists"):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "already exists")
+				continue
+			}
 			fmt.Println("Couldn't JSON Unmarshal Output from Replication Task", err)
 			continue
 		}

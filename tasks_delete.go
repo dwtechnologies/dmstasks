@@ -47,8 +47,6 @@ func deleteTasks() {
 
 		_, err := svc.DeleteReplicationTask(params)
 		if err != nil {
-			fmt.Println(err)
-
 			switch {
 			case strings.Contains(err.Error(), "is running"):
 				fmt.Println("Please stop task", task.ReplicationTaskIdentifier, "before trying to delete it")
