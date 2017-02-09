@@ -76,7 +76,7 @@ func createTasksOnAws(t *Tasks) {
 	tasksJSON, _ := json.MarshalIndent(tasksCreated, "", "\t")
 	ioutil.WriteFile(tasksFile, tasksJSON, 0644)
 
-	fmt.Println("DONE! Created", counter, "tasks.")
+	fmt.Println("\nDONE! Created", counter, "tasks.")
 }
 
 func startTasksOnAws(t *Tasks) {
