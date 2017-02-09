@@ -46,10 +46,15 @@ func stopTasks() {
 
 		_, err := svc.StopReplicationTask(params)
 		if err != nil {
-			// Check to see that the task actually is running
-			if strings.Contains(err.Error(), "is not currently running") {
+			switch {
+			case strings.Contains(err.Error(), "is not currently running"):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "is currently not running")
+				continue
+			case strings.Contains(err.Error(), "is already being stopped"):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "is already being stopped")
 				continue
 			}
+
 			fmt.Println("Couldn't stop Replication Task", err)
 			continue
 		}

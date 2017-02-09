@@ -47,14 +47,20 @@ func deleteTasks() {
 
 		_, err := svc.DeleteReplicationTask(params)
 		if err != nil {
-			// Show nice messages that we need to stop the task first
-			if strings.Contains(err.Error(), "is running") {
+			fmt.Println(err)
+
+			switch {
+			case strings.Contains(err.Error(), "is running"):
 				fmt.Println("Please stop task", task.ReplicationTaskIdentifier, "before trying to delete it")
 				continue
-			}
-			// Show nice message that we need to wait until task is stopped before deleteing it
-			if strings.Contains(err.Error(), "is currently being stopped") {
-				fmt.Println("Please wait until task", task.ReplicationTaskIdentifier, " has stopped before trying to delete it")
+			case strings.Contains(err.Error(), "is currently being stopped"):
+				fmt.Println("Please wait until task", task.ReplicationTaskIdentifier, "has stopped before trying to delete it")
+				continue
+			case strings.Contains(err.Error(), "is already being deleted"):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "is already being deleted")
+				continue
+			case strings.Contains(err.Error(), "not found"):
+				removeTask(tasks, id)
 				continue
 			}
 
@@ -62,23 +68,37 @@ func deleteTasks() {
 			continue
 		}
 
-		// Remove the task from the slice
-		*tasks = append((*tasks)[:id], (*tasks)[id+1:]...)
+		// Remove task from tasks.json
+		removeTask(tasks, id)
 
 		counter++
 		fmt.Println("Task deleted: " + task.ReplicationTaskIdentifier)
 	}
 
 	// If we have no tasks left, delete the whole file
-	if len(*tasks) == 0 {
-		err = os.Remove(tasksFile)
+	switch {
+	case len(*tasks) == 0:
+		err := os.Remove(tasksFile)
 		if err != nil {
 			fmt.Println("Couldn't remove tasks files", err)
 		}
+
+	default:
+		// Write remaining tasks to tasks-file
+		writeTaskFile(tasks)
 	}
 
-	// Write remaining tasks to tasks-file
-	writeTaskFile(tasks)
-
 	fmt.Println("\nDONE! Deleted", counter, "tasks.")
+}
+
+func removeTask(tasks *[]ReplicationTask, id int) {
+	length := len(*tasks)
+	switch {
+	case length > id:
+		*tasks = append((*tasks)[:id], (*tasks)[id+1:]...)
+	case length == id:
+		tasks = new([]ReplicationTask)
+	default:
+		tasks = new([]ReplicationTask)
+	}
 }
