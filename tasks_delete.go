@@ -96,7 +96,5 @@ func removeTask(tasks *[]ReplicationTask, id int) {
 		*tasks = append((*tasks)[:id], (*tasks)[id+1:]...)
 	case length == id:
 		tasks = new([]ReplicationTask)
-	default:
-		tasks = new([]ReplicationTask)
 	}
 }
