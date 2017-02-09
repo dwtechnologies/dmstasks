@@ -13,16 +13,33 @@ So as the lazy guy I am I created this quick and dirty program for generating JS
 
 What you need:  
 `Golang` - Build the program by issuing `go build` inside the dmstasks directory.  
-`tables.txt` - Should contain a list of all the tables you will want to migrate split up into different task seperated by [task-name]  
-`defaults.json` - Should contain a JSON file with the default parameters you will want the task to have. (Tip, create a task in the Console then describe it in aws cli)
+`tables.txt` - Should contain a list of all the tables you will want to migrate split up into different task seperated by [task-name] (have a look in tables_example.txt)  
+`settings.json` - Should contain a JSON file with the settings and parameters you will want the task to have. (Tip, create a task in the Console then describe it in aws cli) (see settings_example.json)
 
-Please have a look in the supploed `tables_example.txt` and `defaults_example.json` ...
-
-Then simply run:  
-`./dmstask -source "arn-to-source" -target "arn-to-target" -replication "arn-to-replication-instance" -sourceschema "schema-name-on-source" -targetschema "schema-name-on-target"`
-
-(-targetschema is optional, if left empty it will assume that the schema name is the same as on source)
+If you don't specify Target Schema in the settings.json the program will assume that you want the same Schema name on target.
 
 
-You will now end up with a lot of JSON files in the `tasks` directory, ready for your pleasure.  
-Have a look in the supplied `createtasks.sh` and `runtasks.sh` for automated task creation and activation.
+Results from the commands below will be stored in a file called tasks.json. So please don't remove this.  
+If you happen to remove a task in the console and not by the commands below, please find it in the JSON-file and remove it manually to skip seeing errors about that task.  
+
+### Then simply run: 
+
+Create tasks  
+`./dmstasks -action create`
+
+Start tasks  
+`./dmstasks -action start`
+
+Stop tasks  
+`./dmstasks -action stop`
+
+Resume tasks  
+`./dmstasks -action resume`
+
+Delete tasks  
+`./dmstasks -action delete`
+
+
+----------
+
+This is a quite quick and dirty program. Please create Pull Requests for new features and optimizations to the code.
