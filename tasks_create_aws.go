@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"strings"
 
@@ -82,8 +83,24 @@ func createTasksOnAws(t *Tasks) {
 		tasksCreated = append(tasksCreated, output.Reply)
 	}
 
-	// Write tasks.jsons file
-	writeTaskFile(&tasksCreated)
+	// Load whats currenty in the file
+	readTasks, err := ioutil.ReadFile(tasksFile)
+	if err != nil {
+		log.Fatal("Couldn't read file "+tasksFile, err)
+	}
+
+	// Create tasksFromFile and unmarshal the JSON
+	tasksFromFile := new([]ReplicationTask)
+	err = json.Unmarshal(readTasks, tasksFromFile)
+	if err != nil {
+		log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
+	}
+
+	if (len(tasksCreated)) > 0 {
+		tasksCreated = append(tasksCreated, *tasksFromFile...)
+		// Write tasks.jsons file
+		writeTaskFile(&tasksCreated)
+	}
 
 	fmt.Println("\nDONE! Created", counter, "tasks.")
 }
