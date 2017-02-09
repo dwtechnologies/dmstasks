@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -58,27 +57,30 @@ func createTasksOnAws(t *Tasks) {
 
 		resp, err := svc.CreateReplicationTask(params)
 		if err != nil {
-			log.Fatal("Couldn't create Replication Task", err)
+			fmt.Println("Couldn't create Replication Task", err)
+			continue
 		}
 
 		// Marshal the output and unmarshal it to golang
 		output := new(Reply)
 		stringMarshaled, _ := json.Marshal(resp)
-		_ = json.Unmarshal(stringMarshaled, output)
-
-		fmt.Println("Task created: " + output.Reply.ReplicationTaskIdentifier)
-		tasksCreated = append(tasksCreated, output.Reply)
+		err = json.Unmarshal(stringMarshaled, output)
+		if err != nil {
+			fmt.Println("Couldn't JSON Unmarshal Output from Replication Task", err)
+			continue
+		}
 
 		counter++
+		fmt.Println("Task created: " + output.Reply.ReplicationTaskIdentifier)
+		tasksCreated = append(tasksCreated, output.Reply)
 	}
 
-	// Write output to file so that we can start/stop/resume at a later point without asking AWS for info
-	tasksJSON, _ := json.MarshalIndent(tasksCreated, "", "\t")
-	ioutil.WriteFile(tasksFile, tasksJSON, 0644)
+	// Write tasks.jsons file
+	writeTaskFile(&tasksCreated)
 
 	fmt.Println("\nDONE! Created", counter, "tasks.")
 }
 
-func startTasksOnAws(t *Tasks) {
+func createAwsTask(task *Task) {
 
 }
