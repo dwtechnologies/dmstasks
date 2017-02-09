@@ -1,6 +1,6 @@
 dmstasks
 tables.txt
 settings.json
+tasks.json
 .DS_Store
 .vscode
-tasks/*
