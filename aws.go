@@ -11,7 +11,10 @@ import (
 	"github.com/aws/aws-sdk-go/service/databasemigrationservice"
 )
 
+// createTasksOnAws tasks t *Tasks (Tasks to create) and creates them on AWS.
 func createTasksOnAws(t *Tasks) {
+	counter := 0
+
 	// Slice to store created info on
 	tasksCreated := []ReplicationTask{}
 
@@ -65,9 +68,17 @@ func createTasksOnAws(t *Tasks) {
 
 		fmt.Println("Task created: " + output.Reply.ReplicationTaskIdentifier)
 		tasksCreated = append(tasksCreated, output.Reply)
+
+		counter++
 	}
 
 	// Write output to file so that we can start/stop/resume at a later point without asking AWS for info
 	tasksJSON, _ := json.MarshalIndent(tasksCreated, "", "\t")
 	ioutil.WriteFile(tasksFile, tasksJSON, 0644)
+
+	fmt.Println("DONE! Created", counter, "tasks.")
+}
+
+func startTasksOnAws(t *Tasks) {
+
 }
