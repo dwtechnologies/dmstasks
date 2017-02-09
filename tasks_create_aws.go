@@ -80,7 +80,3 @@ func createTasksOnAws(t *Tasks) {
 
 	fmt.Println("\nDONE! Created", counter, "tasks.")
 }
-
-func createAwsTask(task *Task) {
-
-}
