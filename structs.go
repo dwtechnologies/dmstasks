@@ -7,13 +7,15 @@ type Tasks struct {
 
 // Task contains all the parameters for the Task
 type Task struct {
-	ReplicationTaskIdentifier string                  `json:"ReplicationTaskIdentifier,omitempty"`
-	SourceEndpointArn         string                  `json:"SourceEndpointArn,omitempty"`
-	TargetEndpointArn         string                  `json:"TargetEndpointArn,omitempty"`
-	ReplicationInstanceArn    string                  `json:"ReplicationInstanceArn,omitempty"`
-	MigrationType             string                  `json:"MigrationType,omitempty"`
-	TableMappings             []Rules                 `json:"rules,omitempty"`
-	ReplicationTaskSettings   ReplicationTaskSettings `json:"ReplicationTaskSettings,omitempty"`
+	ReplicationTaskIdentifier string                  `json:"ReplicationTaskIdentifier"`
+	SourceEndpointArn         string                  `json:"SourceEndpointArn"`
+	TargetEndpointArn         string                  `json:"TargetEndpointArn"`
+	ReplicationInstanceArn    string                  `json:"ReplicationInstanceArn"`
+	SourceSchema              string                  `json:"SourceSchema"`
+	TargetSchema              string                  `json:"TargetSchema"`
+	MigrationType             string                  `json:"MigrationType"`
+	Mappings                  Mappings                `json:"Mappings"`
+	ReplicationTaskSettings   ReplicationTaskSettings `json:"ReplicationTaskSettings"`
 }
 
 // ReplicationTaskSettings contains all the config parameters for the ReplicationTaskSettings
@@ -129,6 +131,11 @@ type ChangeProcessingTuning struct {
 	StatementCacheSize            int  `json:"StatementCacheSize,omitempty"`
 }
 
+// Mappings contains all the schema mappings
+type Mappings struct {
+	TableMappings []Rules `json:"rules"`
+}
+
 // Rules contains the different mapping rules
 type Rules struct {
 	RuleType      string        `json:"rule-type,omitempty"`
@@ -144,4 +151,15 @@ type Rules struct {
 type ObjectLocator struct {
 	SchemaName string `json:"schema-name,omitempty"`
 	TableName  string `json:"table-name,omitempty"`
+}
+
+// Reply contains the answer from the AWS Create task function
+type Reply struct {
+	Reply ReplicationTask `json:"ReplicationTask"`
+}
+
+// ReplicationTask contains the ReplicationTask data from the AWS Reply
+type ReplicationTask struct {
+	ReplicationTaskIdentifier string `json:"ReplicationTaskIdentifier"`
+	ReplicationTaskArn        string `json:"ReplicationTaskArn"`
 }

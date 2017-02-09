@@ -1,8 +1,10 @@
 {
-	"ReplicationTaskIdentifier": "",
-	"SourceEndpointArn": "",
-	"TargetEndpointArn": "",
-	"ReplicationInstanceArn": "",
+	"ReplicationTaskIdentifier": "task-",
+	"SourceEndpointArn": "arn:aws:dms:region:account:endpoint:id",
+	"TargetEndpointArn": "arn:aws:dms:region:account:endpoint:id",
+	"ReplicationInstanceArn": "arn:aws:dms:region:account:rep:id",
+	"SourceSchema": "source_db",
+	"TargetSchema": "target_db",
 	"MigrationType": "full-load-and-cdc",
 	"ReplicationTaskSettings": {
 		"TargetMetadata": {
@@ -58,7 +60,6 @@
 			"CloudWatchLogStream": ""
 		},
 		"ControlTablesSettings": {
-			"historyTimeslotInMinutes": 5,
 			"ControlSchema": "",
 			"HistoryTimeslotInMinutes": 5,
 			"HistoryTableEnabled": false,

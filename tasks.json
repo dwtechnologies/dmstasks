@@ -1,0 +1,346 @@
+[
+	{
+		"ReplicationTaskIdentifier": "task-admin",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:RWDTNSUTO755OYX74R7OGYQDEY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-adyen",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:SRNE2OGJ6YTP2RR6FPGM3KCHMA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-api2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:KOJTTZ7LMUMHZXSLAUU6ERVVCA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-api",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:K5CTTPQ7UKN6T5SYAEKK65YAX4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-aw1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:ZYOSDW5VOAPZ4BD4MEC3CKXDKQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-aw2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:ZDZQ7STBEYJE5XB7E73WDX6IN4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-bronto1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:U625OBD6RG6GP7UPTBH7JZBLZM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-bronto2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:GR2M24BQMNDUPOHMWTBCCDPOWY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-cataloganc",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BHZ3P3CMZ4TCJJNGBJ3NA4MMA4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogentity1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:7FWPMBCBK5ZELIU72M4475TMBA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogflatstore1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:3YBJXTRTVREWW6JDPOA56UNCUU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogflatstore2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:VFVSSITPOQZNAXXZX7JFLK4Q44"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogproduct",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:X5K5IBIJ2KZG3J57RMTHCFG66M"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogdiv1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:B4GGKPYMSJSYAOWIPAR3BCS4I4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogbundle",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:Z4HF7DVMWCB462JTEIUHEJ43GY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogentity2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:XBVCESTA6OO5F272YH3CREJ5AM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogflat1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:4OYSZSALAY62ZQSR74FKGUTZ54"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogflat2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:NL5UBFHRX2QZGBURDQJDGYH4TI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogindex1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BVKDMSKT7NBLT3MQGCVLWFUELY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogindex2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:5YPPGRJYQGKYUWB2GZV6YKCY6A"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-cataloglink",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:RERZMKXCK62MGEOR4IX5AK33Y4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogdiv2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:J5EZ2G4ZSHZ5FSEYBUOSWPP5SM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogdiv3",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:6UDQKXOO7YLCYWSQ3LYENZPBRA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogindex",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BAGZDDKLBRJRHOWOVUWUZ4LW5E"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-cataloginventory",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:Y2ILKHYHUT26IXCQ37B5A4G5B4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogrule",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:LTEG5AYOMUYXT4EBACIQ5QHCTU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-catalogsearch",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:IT6L32GWFTJ7NHUJHHFQAMKCLY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-checkout",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:ST7BXBXB32N5EDPUDYO4MONYLU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-cms",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:IDTF7BQQRUHDBZ22O44PE43ONA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-core1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BKXUYJWIZCUCSNUJ2PAIXUKOPA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-core2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BAUU4VI3GBBURSWKP73JKZIODQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-coupon",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:MRXMJYUCMLNJTD2WDPYB57WVYU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-customer1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:QEHKGNRDLXKHDLRPYLRABT6MMM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-customer2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CC7GSKKWVB57AE25TAEUD7V2N4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-datafeed",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:ZFACGEBROPWWNMRLAOEOP5L66A"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-dataflow",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:73JKUNS5Q6ICJHWAYPVSB75MCI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-directory",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:3NWXYQHRYRCPXAYD2L2EQIUIUA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-downloadable",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:XCDKJSCULHBWWFFDHKGQQTT2T4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-eav1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:V742I6BDJNYDREZEUA5WC7JC2U"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-eav2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:EJPF2VITNCRSU5PAE6J325P4UY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-ebiz",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:4QLLJHWUTIHXOMUBX6YNBLY5RY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-icommerce",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:PIWGOQ4BORNJJTPUTXTQO3UXZE"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-index",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:WW4V23INTPPBFCDC5HLDH7EGUI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-integration",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:5S4C3CJLFOTZZJMU5N7RSQBB5Q"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-klarna",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:HEETSNGLM7H7KXWWUWOEE23GJY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-div1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:6GKLR4YPWJXBNZ2AJNFB6K3HGI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-log",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:QPPTLXLLLXQUWCP4NUIGB43QEI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-made1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:RS5YLS6QKVXOGIRVUCIWNTARVU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-made2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:BMBLIA2VZG5IDVESOEAAYS6K7E"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-made3",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:7RKOG4C4SZFK7Z4II62ETNEXLM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-magemonkey",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:23ABRTOKR2DRYBWPNPYAMWIIIA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-magentonotification",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:MIZEUOEHLSFP7AHBEKVWBRVNIM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-newsletter",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:SLYSU5KPPONKATVRHMUAZU57U4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-nex",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:6GEXMVOECKDMLZ4FWH7SK3MPBE"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-oauth",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:H3BNI5DPXEBHG4BZZFDDDKJDLY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-oddny",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:OLLRK6ZTPVQQS7FR4CHD2PFB54"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-div2",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CKJHZ7D4DG7OG7S22JSZBK7NWY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-paypal",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CQ37WICB5LT4EF6JTA5G2VXMPU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-permission",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:XQLHKO2QN3MYIQ6AHNGGOPZ5YM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-poll",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:JSUR6Z5YGWHZ2ZSN74QKARI4MM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-rating",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:HOSL75HXHW7FOGZHTRNMLRUTKQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-report",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:FT5XD52PRHLB6YS56RGTDHZNS4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-review",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:R6YQHFU2YBH5LUCSJ7XCDZZO74"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-sagepay",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:TKHVCIZX42VGHZ2E7PGMGVLMBU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-bestsellers",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:U3BZX3JMIC6FVJU2ZTQQBBMCGI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesbilling",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:RY6YAYOS7KUZU3YVELICHT4A2Y"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesflatcreditmemo",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CQU6JH4WFFSQRZUR3ZMQKNI5FI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesflatinvoice",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:GSTAGVB3KDE434IGQAYHB5THY4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesflatorder",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CEBQ7ZE6QMZEAZJA2KAISOBKTQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesflatquote",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:HGNCAW4MHTTKBPZR65OUKEDEEU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesflatshipment",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:T6BEXFBVMVNOO66V4NCJREKBVQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesinvoiced",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:FGNAV4DI2YRKANK7B2WPYAC4U4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesorder",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:WA5GKX7MQACMRUCASI54OWZOEE"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesdiv1",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:OBMB4UCOUAK5ZDGPXMT5A6XK4I"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-salesrule",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:Z3YRGJXHBREMML7O4PSPSRCPBY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-div3",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:7Y652N5PIFZSXTZNPIVBDM3DZU"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-slideshow",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:PX2FVFSM5LAMQGM76DDPLT45ZY"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-storelocator",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:VNLHVMN4X37HOKRLURQ4L7GO5A"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-streamcheckout",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:JNK4EBG7FQNL4HDYXWYZXR74X4"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-tag",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:XPQUVSRKKCEHKZUDXROX6YVZJM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-tax",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:CPK4NHMX6RFUTWRUQC46OVDNLI"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-vaimo",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:E4JF5RGGOB3DFJXKLWJG7A4JQA"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-weee",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:TLE4S44DQW2WK3HDJEF7AOLEYQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-widget",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:TW2KL7ILBAEJBD3Z36NAEIVZDM"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-wishlist",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:4ZSNRJ7SVHMAN4PU3NIIEFVDNQ"
+	},
+	{
+		"ReplicationTaskIdentifier": "task-xmlconnect",
+		"ReplicationTaskArn": "arn:aws:dms:eu-west-1:494090316628:task:Z7WQK26HOP3RSXH6JB5474AEVI"
+	}
+]

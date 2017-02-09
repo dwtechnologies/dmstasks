@@ -19,9 +19,9 @@ func addTasks() *[]Task {
 	tasks := new([]Task)
 
 	// Read the tables from file
-	tblsFile, err := ioutil.ReadFile(tables)
+	tblsFile, err := ioutil.ReadFile(tablesFile)
 	if err != nil {
-		log.Fatal("Couldn't read file " + tables)
+		log.Fatal("Couldn't read file " + tablesFile)
 	}
 
 	// Split on [, to get name and all tables
@@ -41,7 +41,7 @@ func addTasks() *[]Task {
 
 func genTask(r *string) *Task {
 	task := new(Task)
-	*task = *deftask
+	*task = *settings
 
 	// Split by name
 	split := strings.SplitN(*r, "]", 2)
@@ -51,12 +51,7 @@ func genTask(r *string) *Task {
 
 	// Set the name of the task
 	name := split[0]
-	task.ReplicationTaskIdentifier = *sourceschema + "-" + *targetschema + "-" + name
-
-	// Set ARNs
-	task.SourceEndpointArn = *source
-	task.TargetEndpointArn = *target
-	task.ReplicationInstanceArn = *replication
+	task.ReplicationTaskIdentifier += name
 
 	// Set CloudWatch LogGroup
 	if task.ReplicationTaskSettings.Logging.EnableLogging == true {
@@ -66,7 +61,7 @@ func genTask(r *string) *Task {
 
 	// Add default exclude all
 	exclude := defaultExclude()
-	task.TableMappings = append(task.TableMappings, *exclude)
+	task.Mappings.TableMappings = append(task.Mappings.TableMappings, *exclude)
 
 	// Get the mappings for the current job
 	params := strings.Split(split[1], "\n")
@@ -76,13 +71,13 @@ func genTask(r *string) *Task {
 			continue
 		}
 		rule := genRule(&param)
-		task.TableMappings = append(task.TableMappings, *rule)
+		task.Mappings.TableMappings = append(task.Mappings.TableMappings, *rule)
 	}
 
 	// Add rename schema mapping - As last ID
-	if sourceschema != targetschema {
+	if settings.SourceSchema != settings.TargetSchema {
 		rename := defaultRename()
-		task.TableMappings = append(task.TableMappings, *rename)
+		task.Mappings.TableMappings = append(task.Mappings.TableMappings, *rename)
 	}
 
 	return task
