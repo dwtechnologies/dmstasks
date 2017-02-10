@@ -5,15 +5,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/databasemigrationservice"
 )
 
-// startTasks will start all tasks stored in tasksFile
-func startTasks(t string) {
+// statusTasks will show status of all the Tasks in tasks.json
+func statusTasks() {
 	counter := 0
 
 	// Create AWS session
@@ -24,6 +23,23 @@ func startTasks(t string) {
 
 	// Create the AWS Service
 	svc := databasemigrationservice.New(s, &aws.Config{Region: aws.String("eu-west-1")})
+
+	// Describe all tasks on AWS account
+	params := &databasemigrationservice.DescribeReplicationTasksInput{}
+
+	// Create the response
+	resp, err := svc.DescribeReplicationTasks(params)
+	if err != nil {
+		log.Fatal("Couldn't describe Replication Task", err)
+	}
+
+	// Marshal the output and unmarshal it to golang
+	output := new([]ReplicationTasks)
+	stringMarshaled, _ := json.Marshal(resp)
+	err = json.Unmarshal(stringMarshaled, output)
+	if err != nil {
+		log.Fatal("Couldn't JSON Unmarshal Output from Replication Task", err)
+	}
 
 	// Read the defaults file
 	readTasks, err := ioutil.ReadFile(tasksFile)
@@ -40,26 +56,11 @@ func startTasks(t string) {
 
 	// Start all the tasks stored in tasks
 	for _, task := range *tasks {
-		params := &databasemigrationservice.StartReplicationTaskInput{
-			ReplicationTaskArn:       aws.String(task.ReplicationTaskArn),
-			StartReplicationTaskType: &t,
-		}
-
-		_, err := svc.StartReplicationTask(params)
-		if err != nil {
-			switch {
-			case strings.Contains(err.Error(), "Task cannot be started, invalid state"):
-				fmt.Println("Task can't be started", task.ReplicationTaskIdentifier, "in it's current state (still being created?)")
-				continue
-			}
-
-			fmt.Println("Couldn't start Replication Task", err)
-			continue
-		}
+		status := ""
 
 		counter++
-		fmt.Println("Task started: " + task.ReplicationTaskIdentifier)
+		fmt.Println("Task " + task.ReplicationTaskIdentifier + " is " + status)
 	}
 
-	fmt.Println("\nDONE! Started", counter, "tasks.")
+	fmt.Println("\nDONE! Listed status for", counter, "tasks.")
 }

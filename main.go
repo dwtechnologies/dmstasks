@@ -36,6 +36,9 @@ func main() {
 		// Stop the tasks stored in tasks.json
 		deleteTasks()
 
+	case "status":
+		// Show status of the tasks in tasks.json
+
 	default:
 		fmt.Println("Usage: ./dmstasks --action [create/start/stop/resume/remove]")
 		fmt.Println("Needs AWS ENV vars to be set or in .aws/credentials file.")

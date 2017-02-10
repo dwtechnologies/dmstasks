@@ -87,10 +87,6 @@ func genTask(r *string) *Task {
 		task.ReplicationTaskSettings.Logging.CloudWatchLogStream = task.ReplicationTaskSettings.Logging.CloudWatchLogGroup
 	}
 
-	// Add default exclude all
-	exclude := defaultExclude()
-	task.Mappings.TableMappings = append(task.Mappings.TableMappings, *exclude)
-
 	// Get the mappings for the current job
 	params := strings.Split(split[1], "\n")
 	for _, param := range params {
@@ -101,6 +97,10 @@ func genTask(r *string) *Task {
 		rule := genRule(&param)
 		task.Mappings.TableMappings = append(task.Mappings.TableMappings, *rule)
 	}
+
+	// Add default exclude all
+	exclude := defaultExclude()
+	task.Mappings.TableMappings = append(task.Mappings.TableMappings, *exclude)
 
 	// Add rename schema mapping - As last ID
 	if settings.SourceSchema != settings.TargetSchema {

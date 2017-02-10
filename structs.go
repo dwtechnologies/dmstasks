@@ -153,6 +153,11 @@ type ObjectLocator struct {
 	TableName  string `json:"table-name,omitempty"`
 }
 
+// ReplicationTasks is a list of all the ReplicationTasks and their StatusTableEnabled
+type ReplicationTasks struct {
+	ReplicationTasks []ReplicationTask `json:"ReplicationTasks"`
+}
+
 // Reply contains the answer from the AWS Create task function
 type Reply struct {
 	Reply ReplicationTask `json:"ReplicationTask"`
@@ -162,4 +167,5 @@ type Reply struct {
 type ReplicationTask struct {
 	ReplicationTaskIdentifier string `json:"ReplicationTaskIdentifier"`
 	ReplicationTaskArn        string `json:"ReplicationTaskArn"`
+	Status                    string `json:"Status"`
 }
