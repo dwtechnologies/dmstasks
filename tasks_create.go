@@ -99,8 +99,8 @@ func genTask(r *string) *Task {
 	}
 
 	// Add default exclude all
-	exclude := defaultExclude()
-	task.Mappings.TableMappings = append(task.Mappings.TableMappings, *exclude)
+	// exclude := defaultExclude()
+	// task.Mappings.TableMappings = append(task.Mappings.TableMappings, *exclude)
 
 	// Add rename schema mapping - As last ID
 	if settings.SourceSchema != settings.TargetSchema {
