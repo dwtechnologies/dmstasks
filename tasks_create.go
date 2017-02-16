@@ -7,18 +7,16 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 	"strings"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/databasemigrationservice"
 )
 
 func createTasks() {
-	// Read the defaults file
-	readSettings, err := ioutil.ReadFile(settingsFile)
-	if err != nil {
-		log.Fatal("Couldn't read file " + settingsFile)
-	}
-
-	// Unmarshal the default settings into the Task object
-	err = json.Unmarshal(readSettings, settings)
+	readConfig()
 
 	// Check that the minimum amount of settings is set
 	if settings.ReplicationTaskIdentifier == "" || settings.SourceEndpointArn == "" || settings.TargetEndpointArn == "" || settings.ReplicationInstanceArn == "" || settings.SourceSchema == "" || settings.MigrationType == "" {
@@ -104,9 +102,139 @@ func genTask(r *string) *Task {
 
 	// Add rename schema mapping - As last ID
 	if settings.SourceSchema != settings.TargetSchema {
-		rename := defaultRename()
+		rename := rename()
 		task.Mappings.TableMappings = append(task.Mappings.TableMappings, *rename)
 	}
 
 	return task
+}
+
+// genRule take r *string (row) and creates a include Rule out of it
+func genRule(r *string) *Rules {
+	rulestr := strconv.Itoa(ruleid)
+	ruleid++
+	return &Rules{
+		RuleType: "selection",
+		RuleID:   rulestr,
+		RuleName: rulestr,
+		ObjectLocator: ObjectLocator{
+			SchemaName: settings.SourceSchema,
+			TableName:  *r,
+		},
+		RuleAction: "include",
+	}
+}
+
+// rename creates rule for renaming schema from source name to target name and returns *Rules
+func rename() *Rules {
+	rulestr := strconv.Itoa(ruleid)
+	ruleid++
+	return &Rules{
+		RuleType:   "transformation",
+		RuleID:     rulestr,
+		RuleName:   rulestr,
+		RuleTarget: "schema",
+		ObjectLocator: ObjectLocator{
+			SchemaName: settings.SourceSchema,
+		},
+		RuleAction: "rename",
+		Value:      settings.TargetSchema,
+	}
+}
+
+// createTasksOnAws tasks t *Tasks (Tasks to create) and creates them on AWS.
+func createTasksOnAws(t *Tasks) {
+	counter := 0
+
+	// Slice to store created info on
+	tasksCreated := []ReplicationTask{}
+
+	// Create AWS session
+	s, err := session.NewSession()
+	if err != nil {
+		log.Fatal("Couldn't create AWS Session.")
+	}
+
+	// Create the AWS Service
+	svc := databasemigrationservice.New(s, &aws.Config{Region: &region})
+
+	// Loop through the Tasks
+	for _, task := range *t.Tasks {
+		// Convert TableMappings and ReplicationTaskSettings to JSON
+		tableMappings, err := json.Marshal(task.Mappings)
+		if err != nil {
+			log.Fatal("Couldn't convert TableMappings to JSON", err)
+		}
+
+		replicationSettings, err := json.Marshal(task.ReplicationTaskSettings)
+		if err != nil {
+			log.Fatal("Couldn't convert ReplicationSettings to JSON", err)
+		}
+
+		params := &databasemigrationservice.CreateReplicationTaskInput{
+			MigrationType:             &task.MigrationType,
+			ReplicationInstanceArn:    &task.ReplicationInstanceArn,
+			ReplicationTaskIdentifier: &task.ReplicationTaskIdentifier,
+			SourceEndpointArn:         &task.SourceEndpointArn,
+			TargetEndpointArn:         &task.TargetEndpointArn,
+			TableMappings:             aws.String(string(tableMappings)),
+			ReplicationTaskSettings:   aws.String(string(replicationSettings)),
+			Tags: []*databasemigrationservice.Tag{
+				{
+					Key:   aws.String("Name"),
+					Value: &task.ReplicationTaskIdentifier,
+				},
+			},
+		}
+
+		resp, err := svc.CreateReplicationTask(params)
+		if err != nil {
+			switch {
+			case strings.Contains(err.Error(), alreadyExists):
+				fmt.Println("Task", task.ReplicationTaskIdentifier, "already exists")
+				continue
+			}
+
+			fmt.Println("Couldn't create Replication Task", err)
+			continue
+		}
+
+		// Marshal the output and unmarshal it to golang
+		output := new(Reply)
+		stringMarshaled, _ := json.Marshal(resp)
+		err = json.Unmarshal(stringMarshaled, output)
+		if err != nil {
+			fmt.Println("Couldn't JSON Unmarshal Output from Replication Task", err)
+			continue
+		}
+
+		counter++
+		fmt.Println("Task created: " + output.Reply.ReplicationTaskIdentifier)
+		tasksCreated = append(tasksCreated, output.Reply)
+	}
+
+	// Load whats currenty in the file
+	readTasks, err := ioutil.ReadFile(tasksFile)
+	if err != nil {
+		if !strings.Contains(err.Error(), "no such file or directory") {
+			log.Fatal("Couldn't read file "+tasksFile, err)
+		}
+	}
+
+	// Create tasksFromFile and unmarshal the JSON
+	tasksFromFile := new([]ReplicationTask)
+	err = json.Unmarshal(readTasks, tasksFromFile)
+	if err != nil {
+		if string(readTasks) != "" {
+			log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
+		}
+	}
+
+	if (len(tasksCreated)) > 0 {
+		tasksCreated = append(tasksCreated, *tasksFromFile...)
+		// Write tasks.jsons file
+		writeTaskFile(&tasksCreated)
+	}
+
+	fmt.Println("\nDONE! Created", counter, "tasks.")
 }

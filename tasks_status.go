@@ -13,33 +13,8 @@ import (
 
 // statusTasks will show status of all the Tasks in tasks.json
 func statusTasks() {
+	readConfig()
 	counter := 0
-
-	// Create AWS session
-	s, err := session.NewSession()
-	if err != nil {
-		log.Fatal("Couldn't create AWS Session.")
-	}
-
-	// Create the AWS Service
-	svc := databasemigrationservice.New(s, &aws.Config{Region: aws.String("eu-west-1")})
-
-	// Describe all tasks on AWS account
-	params := &databasemigrationservice.DescribeReplicationTasksInput{}
-
-	// Create the response
-	resp, err := svc.DescribeReplicationTasks(params)
-	if err != nil {
-		log.Fatal("Couldn't describe Replication Task", err)
-	}
-
-	// Marshal the output and unmarshal it to golang
-	output := new([]ReplicationTasks)
-	stringMarshaled, _ := json.Marshal(resp)
-	err = json.Unmarshal(stringMarshaled, output)
-	if err != nil {
-		log.Fatal("Couldn't JSON Unmarshal Output from Replication Task", err)
-	}
 
 	// Read the defaults file
 	readTasks, err := ioutil.ReadFile(tasksFile)
@@ -54,12 +29,49 @@ func statusTasks() {
 		log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
 	}
 
-	// Start all the tasks stored in tasks
+	// Create filter to use for gathering tasks from AWS
+	taskFilter := []*string{}
 	for _, task := range *tasks {
-		status := ""
+		taskArn := task.ReplicationTaskArn
+		taskFilter = append(taskFilter, &taskArn)
+	}
 
+	// Create AWS session
+	s, err := session.NewSession()
+	if err != nil {
+		log.Fatal("Couldn't create AWS Session.")
+	}
+
+	// Create the AWS Service
+	svc := databasemigrationservice.New(s, &aws.Config{Region: &region})
+
+	// Describe all tasks on AWS account
+	params := &databasemigrationservice.DescribeReplicationTasksInput{
+		Filters: []*databasemigrationservice.Filter{
+			{
+				Name:   aws.String("replication-task-arn"),
+				Values: taskFilter,
+			},
+		},
+	}
+
+	// Create the response
+	resp, err := svc.DescribeReplicationTasks(params)
+	if err != nil {
+		log.Fatal("Couldn't describe Replication Task", err)
+	}
+
+	// Marshal the output and unmarshal it to golang
+	output := new(ReplicationTasks)
+	outputMarshaled, _ := json.Marshal(resp)
+	err = json.Unmarshal(outputMarshaled, output)
+	if err != nil {
+		log.Fatal("Couldn't JSON Unmarshal Output from Replication Task", err)
+	}
+
+	for _, dmsTask := range output.ReplicationTasks {
+		fmt.Println("Task " + dmsTask.ReplicationTaskIdentifier + " is " + dmsTask.Status)
 		counter++
-		fmt.Println("Task " + task.ReplicationTaskIdentifier + " is " + status)
 	}
 
 	fmt.Println("\nDONE! Listed status for", counter, "tasks.")
