@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -23,7 +24,7 @@ func startTasks(t string) {
 	}
 
 	// Create the AWS Service
-	svc := databasemigrationservice.New(s, &aws.Config{Region: aws.String("eu-west-1")})
+	svc := databasemigrationservice.New(s, &aws.Config{Region: &region})
 
 	// Read the defaults file
 	readTasks, err := ioutil.ReadFile(tasksFile)
@@ -33,6 +34,7 @@ func startTasks(t string) {
 
 	// Create tasks and unmarshal the JSON
 	tasks := new([]ReplicationTask)
+	remainingTasks := new([]ReplicationTask) // Tasks that will be saved (if they couldn't be removed for example)
 	err = json.Unmarshal(readTasks, tasks)
 	if err != nil {
 		log.Fatal("Couldn't JSON unmarshal file "+tasksFile, err)
@@ -47,8 +49,17 @@ func startTasks(t string) {
 
 		_, err := svc.StartReplicationTask(params)
 		if err != nil {
+			// If the task doesn't exists we shouldn't keep it in the tasks.json file - just continue
+			if strings.Contains(err.Error(), doesntExists) {
+				continue
+			}
+
+			// If the task errored and not because it doesn't exists, keep it in the tasks.json file
+			*remainingTasks = append(*remainingTasks, task)
+
+			// Keep in switch so we can add more states - if needed ;)
 			switch {
-			case strings.Contains(err.Error(), "Task cannot be started, invalid state"):
+			case strings.Contains(err.Error(), cantBeStarted):
 				fmt.Println("Task can't be started", task.ReplicationTaskIdentifier, "in it's current state (still being created?)")
 				continue
 			}
@@ -57,9 +68,25 @@ func startTasks(t string) {
 			continue
 		}
 
+		// If the task errored and not because it doesn't exists, keep it in the tasks.json file
+		*remainingTasks = append(*remainingTasks, task)
+
+		counter++
 		fmt.Println("Task started: " + task.ReplicationTaskIdentifier)
 	}
 
-	counter++
+	// If we have no tasks left, delete the whole file
+	switch {
+	case len(*remainingTasks) == 0:
+		err := os.Remove(tasksFile)
+		if err != nil {
+			fmt.Println("Couldn't remove tasks files", err)
+		}
+
+	default:
+		// Write remaining tasks to tasks-file
+		writeTaskFile(remainingTasks)
+	}
+
 	fmt.Println("\nDONE! Started", counter, "tasks.")
 }
